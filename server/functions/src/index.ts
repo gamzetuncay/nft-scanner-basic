@@ -49,9 +49,9 @@ app.post('/add-signature', async (req: any, res: any) => {
       .create({
         id: newSignature.id,
         name: newSignature.name,
-        time: new Date().toString(),
+        time: newSignature.time,
+        count: newSignature.count
       })
-
     return res.status(200).send('Signed book!')
   } catch (error) {
     console.log(error)
@@ -60,12 +60,13 @@ app.post('/add-signature', async (req: any, res: any) => {
 })
 
 app.post('/update-signature', async (req: any, res: any) => {
-  let newSignature = req.body
+  let signature = req.body
   try {
     await signatures
-      .doc('/'+newSignature.id+'/')
+      .doc('/'+signature.id+'/')
       .update({
-        time: new Date().toString()
+        count: signature.count,
+        time: signature.time
       })
 
     return res.status(200).send('Signature is updated successfully!')
