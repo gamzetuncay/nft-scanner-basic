@@ -66,8 +66,7 @@ executeTask(async () => {
   try {
     userAddress = await EthereumController.getUserAccount()
     // get user id
-    //signGuestBook()
-
+    signGuestBook()
     log("User Address: ", userAddress)
   } catch (error) {
     log("PUPUPU")
