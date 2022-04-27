@@ -63,7 +63,7 @@ The scene is set up to make use of an existing server. To launch your own server
 4- Set collection name with Signatures
 5- In Project Settings/Service Accounts, Create service account and generate new private key and download it
 6- Change server/functions/permissions.json file with new private key file
-7- In server file run below commands
+7- In server folder run below commands
         + firebase login
         + npm run serve
         + firebase deploy
