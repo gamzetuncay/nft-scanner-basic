@@ -42,42 +42,43 @@ export async function getGuest() {
  * @returns 
  */
 export async function signGuestBook() {
-  let guest = await getGuest() // get guest data for counter
+  if (!userData){
+    await setUserData()
+  }
   try {
-    if(guest>0){ // if guest is already exist in database: update count variable
-      const url = fireBaseServer + 'update-signature?doc='+ userData.userId
+    let guest = await getGuest() 
+    let flag = (await guest).length
+    if(flag>0){
+      const url = fireBaseServer + 'update-signature'
       const body = JSON.stringify({
-        id: userData.userId,
-        time: await guest[0].time,
-        count: await guest[0].count+1
+        id: (await userData).userId,
+        name: (await userData).displayName,
+        time: new Date().toString(),
+        count: (+(await guest)[0].count+1).toString()
       })
-      log(body)
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: body
-      })
-      return response.json()
     }
-    else{  // new user entry
+    else{
       const url = fireBaseServer + 'add-signature'
       const body = JSON.stringify({
         id: (await userData).userId,
         name: (await userData).displayName,
         time: new Date().toString(),
-        count: 1
+        count: "1"
       })
-      log(body)
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: body
-      })
-      return response.json()
+      log('url:  '+url)
     }
-  } catch (e) {
+    
+    log(body)
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: body
+    })
+    return response.json()
+  }catch(e){
     log('error posting to server ', e)
   }
+
 }
 
 /**
