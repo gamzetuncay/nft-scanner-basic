@@ -30,6 +30,27 @@ const jazzMuffledSound = new Sound(new AudioClip("sounds/jazzMuffled.mp3"), true
 const jazzSound = new Sound(new AudioClip("sounds/jazz.mp3"), true, true)
 jazzSound.getComponent(AudioSource).volume = 0.0
 
+
+// Kiosk
+const kiosk = new Entity()
+kiosk.addComponent(new BoxShape())
+kiosk.addComponent(new Transform({ position: new Vector3(2, 1.5, 2), scale: new Vector3(0.75, 0.75, 0.75)  }))
+kiosk.addComponent(new OnPointerDown(
+    () => {
+      //
+      log('clicked')
+    },
+    { button: ActionButton.POINTER, hoverText: 'Giris biletini almak için tiklayin.' }
+  )
+)
+engine.addEntity(kiosk)
+
+// Ticketer
+const ticketer = new Entity()
+ticketer.addComponent(new SphereShape())
+ticketer.addComponent(new Transform({ position: new Vector3(14, 1.5, 14), scale: new Vector3(0.5, 0.5, 0.5)  }))
+engine.addEntity(ticketer)
+
 // Base
 const base = new Entity()
 base.addComponent(new GLTFShape("models/baseDarkWithCollider.glb"))
@@ -38,11 +59,9 @@ engine.addEntity(base)
 // Facade
 const facade = new Entity()
 facade.addComponent(new GLTFShape("models/facade.glb"))
-facade.addComponent(new Transform({ position: new Vector3(8, 0.05, 10) }))
+facade.addComponent(new Transform({ position: new Vector3(8, 0.05, 10)}))
 facade.getComponent(Transform).rotate(Vector3.Up(), 180)
 engine.addEntity(facade)
-
-
 
 // Door
 const door = new Door(new GLTFShape("models/door.glb"))
@@ -67,6 +86,7 @@ executeTask(async () => {
     userAddress = await EthereumController.getUserAccount()
     // get user id
     signGuestBook()
+
     log("User Address: ", userAddress)
   } catch (error) {
     log("PUPUPU")
@@ -100,6 +120,4 @@ async function checkTokens() {
     jazzMuffledSound.getComponent(AudioSource).volume = 1.0
   }
 }
-
-
 

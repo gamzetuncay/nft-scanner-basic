@@ -14,9 +14,8 @@ Walk up to the door and press the <kbd>E</kbd> key to see if you can access the 
 Use your mouse to look around and <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd><kbd>Space</kbd> keys on your keyboard to move forward, left, backward, right and jump respectively. You can also press the <kbd>P</kbd> key to adjust the graphics settings.
 
 1- Change Contract Address
-2- dcl start
-3- add &ENABLE_WEB3 to URL
-4- dcl deploy --skip-build
+2- dcl start --web3
+3- dcl deploy --skip-build
 
 
 ## Try it out
